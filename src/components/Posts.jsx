@@ -8,15 +8,31 @@ export default function Posts() {
   const [page, setPage] = useState(1);
   const [skip, setSkip] = useState(0);
   const limit = 10;
+  const [totalPages, setTotalPages] = useState(0);
 
   const nextPage = () => {
-    setPage((prev) => prev + 1);
-    setSkip((prev) => prev + limit);
+    setPage((prev) => (prev < totalPages ? prev + 1 : prev));
+    setSkip((prev) => (prev < totalPages ? prev + limit : prev));
   };
 
   const prevPage = () => {
     setPage((prev) => (prev > 1 ? prev - 1 : prev));
     setSkip((prev) => (prev > 0 ? prev - limit : prev));
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (value.length < 1) {
+      return;
+    }
+
+    if (value > totalPages || value < 0) {
+      return;
+    }
+
+    setPage(value);
+    console.log((value - 1) * limit);
+    setSkip((value - 1) * limit);
   };
 
   useEffect(() => {
@@ -35,10 +51,17 @@ export default function Posts() {
 
         const resData = await response.json();
 
+        // console.log(
+        //   Math.floor(resData.total / limit) +
+        //     (resData.total % limit > 0 ? 1 : 0),
+        // );
+
+        setTotalPages(Math.ceil(resData.total / limit));
+
         if (data !== null) {
           setData((prev) => ({
             ...prev,
-            posts: [...resData.posts, ...prev.posts],
+            posts: [...resData.posts],
           }));
         } else {
           setData(resData);
@@ -114,6 +137,13 @@ export default function Posts() {
           className="font-bold size-10.5 text-gray-600 bg-gray-300 flex justify-center items-center rounded-full cursor-pointer"
         >
           {">"}
+        </li>
+        <li>
+          <input
+            type="number"
+            onChange={handleChange}
+            className="h-10.5 w-24 border border-gray-950"
+          />
         </li>
       </ul>
     </>
