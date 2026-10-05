@@ -1,3 +1,4 @@
+import Blogs from "../components/Blogs";
 import PostCard from "../components/PostCard";
 import Posts from "../components/Posts";
 
@@ -20,7 +21,7 @@ export default function HomePage() {
           />
         </div>
       </header>
-      <Posts />
+      <Blogs />
     </div>
   );
 }
