@@ -40,6 +40,16 @@ export default function Navbar() {
             Contact
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "underline text-primary font-bold" : ""
+            }
+            to="/create"
+          >
+            Add Post
+          </NavLink>
+        </li>
       </ul>
       <div className="md:hidden">
         <div className="size-8 flex flex-col justify-between">

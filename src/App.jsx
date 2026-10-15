@@ -5,6 +5,7 @@ import Contact from "./pages/Contact";
 import HomePage from "./pages/HomePage";
 import PostPage from "./pages/PostPage";
 import BlogPage from "./pages/BlogPage";
+import CreatePost from "./pages/CreatePost";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/blog/:slug" element={<BlogPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/create" element={<CreatePost />} />
         </Routes>
       </main>
     </>
